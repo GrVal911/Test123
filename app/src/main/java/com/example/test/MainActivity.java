@@ -1,7 +1,9 @@
 package com.example.test;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,11 +31,20 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, pass.getText(),Toast.LENGTH_SHORT).show();
     }
     public void addListenerOnButton2(View V){
-        pass = (EditText)findViewById(R.id.editText);
-        btn2 = (Button)findViewById(R.id.button3);
-        btn.setText("Changed");
-        btn2.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-        btn.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-        Toast.makeText(MainActivity.this, "Button 1 was changed",Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+        a_builder.setMessage("Do you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert =a_builder.create();
+        alert.setTitle("Closing App");
+        alert.show();
     }
 }
